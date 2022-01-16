@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 const mongoose = require('mongoose')
-mongoose.connect(config.mongoURI)
+mongoose.connect("mongodb+srv://kwengwoo:4325118@firstnode.eq5cp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 .then(()=>console.log("Mongoose Connected...")).catch(err=>console.log(err));
 
 app.get('/',(req,res)=>{
@@ -34,9 +34,7 @@ app.post('/api/users/register',(req,res)=>{
         return res.status(200).json({
             success:true
         })
-
     })
-
 })
 
 
