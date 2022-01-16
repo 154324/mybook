@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "node" : "node index.js",
+    "node": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kwengwoo",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.1",
     "express": "^4.17.2",
     "mongoose": "^6.1.6"
   }
