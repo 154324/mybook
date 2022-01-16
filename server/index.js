@@ -3,6 +3,8 @@ const app = express()
 const port = 5000
 const {User} = require('./models/User')
 
+
+const config = require('./config/key')
 //application/x-www-form-urlencoded
 app.use(express.urlencoded({extended:true}));
 
@@ -11,11 +13,11 @@ app.use(express.json());
 
 
 const mongoose = require('mongoose')
-mongoose.connect("mongodb+srv://kwengwoo:4325118@firstnode.eq5cp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoose.connect(config.mongoURI)
 .then(()=>console.log("Mongoose Connected...")).catch(err=>console.log(err));
 
 app.get('/',(req,res)=>{
- res.send("node welcome!")
+ res.send("nodemon 으로 change 완료")
 });
 
 
