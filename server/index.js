@@ -2,12 +2,16 @@ const express = require('express');
 const app = express()
 const port = 5000
 const {User} = require('./models/User')
+const cookieParser = require('cookie-parser');
+const {auth} =require('./middleware/auth')
+
 
 //application/x-www-form-urlencoded
 app.use(express.urlencoded({extended:true}));
 
 //application/json
 app.use(express.json());
+app.use(cookieParser());
 
 
 const mongoose = require('mongoose')
@@ -17,6 +21,11 @@ mongoose.connect("mongodb+srv://kwengwoo:4325118@firstnode.eq5cp.mongodb.net/myF
 app.get('/',(req,res)=>{
  res.send("nodemon 으로 change 완료")
 });
+
+//proxy를 서정하여 키게 되면 개발자 콘솔에 안녕하세요가 뜬다.
+app.get('/api/hello',(req,res)=>{
+    res.send("안녕하세요")
+})
 
 
 app.post('/api/users/register',(req,res)=>{
@@ -69,7 +78,7 @@ app.post('/api/user/login',(req,res)=>{
   })
   
   
-  app.get('/api/user/auth',auth,(req,res)=>{
+  app.get('/api/user/auth', auth,(req,res)=>{
   
     //여기 까지 미들웨어를 통과해 왔다는 얘기는 auth가 true 라는 말
   
