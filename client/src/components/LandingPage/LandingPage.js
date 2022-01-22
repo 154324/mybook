@@ -1,25 +1,20 @@
 import React from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { Link } from "react-router-dom"
-function LandingPage() {
-   const navigate =useNavigate();
-    const logoutHandler=()=>{
-        axios.get('/api/users/logout').then
-        (response=>{
-            if(response.data.success){
-                navigate('/login')
-                alert("로그아웃 완료")
-                console.log(response.data)
-            }else{
-                alert("로그아웃을 실패 했습니다")
-            }
-        
-    })
-}
+import { Button } from 'antd';
+import {SendOutlined} from '@ant-design/icons'  
+import { Carousel } from 'antd';
 
-    
+
+function LandingPage() {
+
+    const contentStyle = {
+        height: '160px',
+        color: 'black',
+        lineHeight: '160px',
+        textAlign: 'center',
+        background: 'white',
+      };
 
 
     useEffect(() => {
@@ -28,22 +23,34 @@ function LandingPage() {
 
     }, [])
     return (
-        <div style={{
-            display : 'flex' ,justifyContent : 'center', alignItems : 'center',
-            width : '100%',height:'100vh'
-        }}>
-           <h2>시작 페이지</h2>
+    <div>
 
-           <br/>
-           <button>
-               <Link to ="/login">Login</Link> 
-           </button>
-           <button onClick={logoutHandler}>
-               Logout
-           </button>
+
+
+ 
+<div style={{ width: '75%', margin: '3rem auto' }}>
+            <div style={{ textAlign: 'center' }}>
+                <h2> 당신의 글을 완성하세요 <SendOutlined />   </h2>
+            </div>
+        </div>
+        <Carousel autoplay>
+    <div>
+      <h3 style={contentStyle}>당신의 글이 시작되는 공간</h3>
+    </div>
+    <div>
+      <h3 style={contentStyle}>2</h3>
+    </div>
+    <div>
+      <h3 style={contentStyle}>3</h3>
+    </div>
+    <div>
+      <h3 style={contentStyle}>4</h3>
+    </div>
+  </Carousel>
 
         </div>
     )
 }
 
 export default LandingPage
+

@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { useNavigate } from 'react-router-dom';
-function LoginPage() {
+
+
+ function LoginPage() {
+
+    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,7 +33,9 @@ function LoginPage() {
         dispatch(loginUser(body)).then(response => {
                 if (response.payload.loginSuccess) {
                     alert("로그인 완료")
-                    navigate('/');
+                    document.location.href='/'
+                    sessionStorage.setItem('user_id',Email)
+                   
 
                 } else {
                     alert('Error˝')
