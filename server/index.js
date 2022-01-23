@@ -4,8 +4,8 @@ const port = 5000
 const {User} = require('./models/User')
 const cookieParser = require('cookie-parser');
 const {auth} =require('./middleware/auth')
-
-
+const {Book}=require('./models/Book')
+var randomString=require('randomstring')
 //application/x-www-form-urlencoded
 app.use(express.urlencoded({extended:true}));
 
@@ -110,3 +110,57 @@ app.post('/api/users/login',(req,res)=>{
   })
 
 app.listen(port,()=>console.log(`express listening on port ${port}! `))
+
+
+//book
+
+app.post('/api/users/uploadbook',(req,res)=>{
+  
+
+  const book = new Book({
+      writer: req.body.token,
+			title: req.body.title,
+			contents: req.body.contents,
+			noticeToken: randomString.generate(12), // 랜덤한 문자열 12자리 생성
+  })
+
+  //save는 mongo db에 함수이다.
+
+  book.save((err,cb)=>{
+      if(err) return res.json({success : false,err})
+      return res.status(200).json({
+          success:true
+      })
+  })
+})
+app.get('/api/users/getList', async(req, res) => {
+  let list = await Book.find(); // 전체 리스트 불러오기.
+  return res.status(200).json({ data: list });
+});
+
+app.get('/api/users/noticeToken',  async(req, res) => {
+  let book = await Book.findOne({ noticeToken: req.params.noticeToken });
+  if (book) {
+    let user = await User.findOne({ token: book.writer }); // 작성자 이름을 얻기 위해, 토큰으로 검색
+    return res.status(200).json({ data: { ...book._doc, writerName: user.name } });
+  }
+  return res.status(500).json({ message: 'Notice Not Found' });
+});
+
+app.post('/api/users/comment', async (req, res) => {
+	let user = await User.findOne({ token: req.body.token }); // 댓글 작성할 유저
+	let book = await Book.findOne({ noticeToken: req.body.noticeToken });
+
+	book.comment.push({
+		// 가져온 notice 객체 ( find로 찾은 notice는 _id가 존재하며, 스키마의 객체입니다. )
+		// 따라서 이러한 문법을 복잡한 update query 없이 사용할 수 있습니다.
+		username: user.name,
+		content: req.body.content,
+	});
+	try {
+		await notice.save(); // 가져오고 수정한 notice를 다시 save합니다.
+		return res.status(200).json({ message: 'success!' });
+	} catch (e) {
+		return res.status(500).json({ message: 'Save Fail!' });
+	}
+});

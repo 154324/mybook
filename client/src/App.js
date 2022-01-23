@@ -9,6 +9,8 @@ import { PageHeader,Layout, Menu, Breadcrumb,Button } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import Writebooks from "./components/Writebook/Writebooks";
+import BookList from "./components/Writebook/Booklist";
 
 
 const { SubMenu } = Menu;
@@ -20,7 +22,8 @@ function App() {
   
 
   //리액트 라우터 돔 v6에서는 새로 변수를 지정해서 컴포넌트를 집어 넣어주자
-
+  const NewBooklist = Auth(BookList,null);
+  const NewWritebooks = Auth(Writebooks,true)
   const NewLandingPage = Auth(LandingPage,null)
   const NewLoginPage =Auth(LoginPage,false)
   const NewLRegisterPage =Auth(RegisterPage,false)
@@ -75,9 +78,9 @@ function App() {
     />
     <Content style={{ padding: '0 50px' }}>
     <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href='/getList'>List</Breadcrumb.Item>
+        <Breadcrumb.Item href='/admin'>App</Breadcrumb.Item>
       </Breadcrumb>   
       <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
         <Sider className="site-layout-background" width={200}>
@@ -88,7 +91,7 @@ function App() {
             style={{ height: '100%' }}
           >
             <SubMenu key="sub1" icon={<UserOutlined />} title="나의 글">
-              <Menu.Item key="1">option1</Menu.Item>
+              <Menu.Item key="1">글쓰기</Menu.Item>
               <Menu.Item key="2">option2</Menu.Item>
               <Menu.Item key="3">option3</Menu.Item>
               <Menu.Item key="4">option4</Menu.Item>
@@ -100,7 +103,7 @@ function App() {
               <Menu.Item key="8">option8</Menu.Item>
             </SubMenu>
             <SubMenu key="sub3" icon={<NotificationOutlined />} title="공지사항">
-              <Menu.Item key="9">option9</Menu.Item>
+              <Menu.Item key="9">ReadMe</Menu.Item>
    
             </SubMenu>
           </Menu>
@@ -111,6 +114,8 @@ function App() {
           <Route path="/" element={<NewLandingPage/>} />
           <Route path="/login" element={<NewLoginPage/>} />
           <Route path="/register" element={<NewLRegisterPage/>} />
+          <Route path="/uploadbook" element={<NewWritebooks/>} />
+          <Route path="/getList" element={<NewBooklist/>} />
         </Routes>
          </Router>
         </Content>

@@ -2,7 +2,8 @@ import axios from "axios";
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
+    Get_List
 } from'./types'
 
 
@@ -37,6 +38,17 @@ export function auth() {
 
     return {
         type: AUTH_USER,
+        payload: request,
+           
+    }
+}
+
+export function getList(){
+    const request = axios.get('/api/users/getList')
+        .then(response => response.data)
+
+    return {
+        type: Get_List,
         payload: request,
            
     }

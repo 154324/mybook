@@ -4,51 +4,30 @@ import axios from 'axios'
 import { Button } from 'antd';
 import {SendOutlined} from '@ant-design/icons'  
 import { Carousel } from 'antd';
+import BookList from '../Writebook/Booklist';
+import { Card } from 'antd';
+
+const { Meta } = Card;
 
 
 function LandingPage() {
 
-    const contentStyle = {
-        height: '160px',
-        color: 'black',
-        lineHeight: '160px',
-        textAlign: 'center',
-        background: 'white',
-      };
 
-
-    useEffect(() => {
-        axios.get('/api/hello')
-        .then(response=>console.log(response.data))
-
-    }, [])
     return (
-    <div>
-
-
-
- 
-<div style={{ width: '75%', margin: '3rem auto' }}>
-            <div style={{ textAlign: 'center' }}>
+ <div>
+    <div style={{ width: '100%', margin: '1rem auto' }}>
+            <div style={{width:'85%',margin:'2rem auto', textAlign: 'center' }}>
                 <h2> 당신의 글을 완성하세요 <SendOutlined />   </h2>
+                <hr/>
+            <BookList/>
+            
+            </div>
+            <div style={{display:'flex',justifyContent:'center'}}>
+                <Button href='/uploadbook'>글 쓰러가기</Button>
             </div>
         </div>
-        <Carousel autoplay>
-    <div>
-      <h3 style={contentStyle}>당신의 글이 시작되는 공간</h3>
     </div>
-    <div>
-      <h3 style={contentStyle}>2</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>3</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>4</h3>
-    </div>
-  </Carousel>
 
-        </div>
     )
 }
 
