@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-
-
+import { useRef, useState } from "react";
 import { Card, Col, Row } from 'antd';
+import { Typography, Switch } from 'antd';
+
+const { Paragraph, Text } = Typography;
+
+
 export default function BookList(){
 
-    const dispatch = useDispatch()
+    const [ellipsis, setEllipsis] = useState(true);
     const [List,setList]=useState([]);
 
     axios.get('/api/users/getList').then(res=>{
@@ -15,15 +17,23 @@ export default function BookList(){
     })
 
     return (
+        
         <div className="site-card-wrapper">
-        <br/><br/> 
+             
+             <Switch
+        checked={ellipsis}
+        onChange={() => {
+          setEllipsis(!ellipsis);
+        }}
+      /> <a>더 보기</a>
+        <hr/>
         <Row gutter={16}>
 
              { List.map(list=>
              (
-                <Col span={8}> 
+                <Col span={8}>
                  <Card title={list.title} key={list.id} bordered={false}>
-                 {list.contents}
+                 <Paragraph ellipsis={ellipsis}>{list.contents}</Paragraph>
              </Card>
              
         </Col>
@@ -36,3 +46,4 @@ export default function BookList(){
     )
 
 }
+

@@ -1,16 +1,31 @@
-import React from 'react'
-import {useEffect} from 'react'
-import axios from 'axios'
-import { Button } from 'antd';
+import React, { useRef, useState } from 'react'
 import {SendOutlined} from '@ant-design/icons'  
-import { Card } from 'antd';
+import { Button } from 'antd';
 import BookShow from '../BookApi/BookShow';
 import BestBook from '../BookApi/BestBook';
-
-const { Meta } = Card;
-
+import useResizeObserver from '../useResizeObserver';
+import styled from 'styled-components'
 
 function LandingPage() {
+
+
+    const contentRef = useRef(null);
+    const [isShowReadMore, setIsShowReadMore] = useState(false);
+    const observeCallback = (entries) => {
+      for (let entry of entries) {
+        if (entry.target.scrollHeight > entry.contentRect.height) {
+          setIsShowReadMore(true);
+        } else {
+          setIsShowReadMore(false);
+        }
+      }
+    };
+    useResizeObserver({ callback: observeCallback, element: contentRef });
+    const onClick = (e) => {
+      contentRef.current.classList.add("show");
+      setIsShowReadMore(false);
+    };
+
 
 
     return (
@@ -20,15 +35,21 @@ function LandingPage() {
                 <h2> 박근호 작가의 작품들 <SendOutlined />   </h2>
                 <hr/>
                 <div>
-                <BookShow/>
+               <BookShow/>
                 </div>
+           
+
+
 
                 <hr/>
-                <h2>그 밖의 에세이 작품들</h2>
-                <BestBook/>
+                <h2>그 밖의 에세이 작품들 <SendOutlined /> </h2>
+                <Wrap>
+      <Ellipsis ref={contentRef}><BestBook/></Ellipsis>
+      {isShowReadMore && <Buttonq onClick={onClick}>...더보기</Buttonq>}
+    </Wrap>
             </div>
             <div style={{display:'flex',justifyContent:'center'}}>
-                <Button href='/uploadbook'>책 검색하러 가기</Button>
+                <Button type ="primary" href='/searchbook'>책 검색하러 가기</Button>
             </div>
         </div>
     </div>
@@ -37,4 +58,29 @@ function LandingPage() {
 }
 
 export default LandingPage
+
+const Wrap = styled.div``;
+
+const Ellipsis = styled.div`
+  position: relative;
+  display: -webkit-box;
+  max-height: 35rem;
+  line-height: 2rem;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  &.show {
+    display: block;
+    max-height: none;
+    overflow: auto;
+    -webkit-line-clamp: unset;
+  }
+`;
+
+const Buttonq = styled.button`
+  max-height: 2rem;
+  line-height: 2rem;
+  &.hide {
+    display: none;
+  }
+`;
 

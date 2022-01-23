@@ -11,8 +11,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Writebooks from "./components/Writebook/Writebooks";
 import BookList from "./components/Writebook/Booklist";
-import BookShow from "./components/BookApi/BookShow";
-
+import Booksearch from "./components/BookApi/Booksearch";
 const { SubMenu } = Menu;
 const { Sider, Content,Footer } = Layout;
 
@@ -28,6 +27,7 @@ function App() {
   const NewLoginPage =Auth(LoginPage,false)
   const NewLRegisterPage =Auth(RegisterPage,false)
   const [isLogin,setIsLogin] =useState(false)
+  const NewBooksearch= Auth(Booksearch,true);
 
 
   useEffect(() => {
@@ -90,19 +90,14 @@ function App() {
             defaultOpenKeys={['sub1']}
             style={{ height: '100%' }}
           >
-            <SubMenu key="sub1" icon={<UserOutlined />} title="나의 글">
-              <Menu.Item key="1">글쓰기</Menu.Item>
-              <Menu.Item key="2">option2</Menu.Item>
-              <Menu.Item key="3">option3</Menu.Item>
-              <Menu.Item key="4">option4</Menu.Item>
+            <SubMenu key="sub1" icon={<UserOutlined />} title="My Page">
+              <Menu.Item key="1"  ><a href='/uploadbook'>글쓰기</a></Menu.Item>
+              <Menu.Item key="2"><a href='getList'>나의 글 모음</a></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="사람들의 글">
-              <Menu.Item key="5">option5</Menu.Item>
-              <Menu.Item key="6">option6</Menu.Item>
-              <Menu.Item key="7">option7</Menu.Item>
-              <Menu.Item key="8">option8</Menu.Item>
+              <Menu.Item key="5"><a href='searchbook'>책 검색하러 가기</a></Menu.Item>
             </SubMenu>
-            <SubMenu key="sub3" icon={<NotificationOutlined />} title="공지사항">
+            <SubMenu key="sub3" icon={<NotificationOutlined />} title="페이지 소개">
               <Menu.Item key="9">ReadMe</Menu.Item>
    
             </SubMenu>
@@ -116,7 +111,7 @@ function App() {
           <Route path="/register" element={<NewLRegisterPage/>} />
           <Route path="/uploadbook" element={<NewWritebooks/>} />
           <Route path="/getList" element={<NewBooklist/>} />
-          <Route path='/bookshow' element={<BookShow/>}/>
+          <Route path='/searchbook'element={<NewBooksearch/>}/>
         </Routes>
          </Router>
         </Content>
