@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import axios from 'axios';
-import user from '../../_reducers/user_reducer';
+
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
 
-function Writebooks(props) {
+function Writebooks() {
     const user_id = sessionStorage.getItem('user_id');
 
     const[TitleValue,setTitleValue]=useState('');

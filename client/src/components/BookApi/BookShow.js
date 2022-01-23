@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Card, Col, Row,Button } from 'antd';
+import {  useState } from "react";
+import { Card, Col, Row} from 'antd';
 const { Meta } = Card;
 
 
