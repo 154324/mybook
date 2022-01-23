@@ -98,7 +98,7 @@ import './LoginPage.css'
         </Form.Item>
   
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" onClick={onSubmitHandler}>
             Log in
           </Button>
           Or <a href="/register">register now!</a>

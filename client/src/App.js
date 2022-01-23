@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Writebooks from "./components/Writebook/Writebooks";
 import BookList from "./components/Writebook/Booklist";
-
+import BookShow from "./components/BookApi/BookShow";
 
 const { SubMenu } = Menu;
 const { Sider, Content,Footer } = Layout;
@@ -116,6 +116,7 @@ function App() {
           <Route path="/register" element={<NewLRegisterPage/>} />
           <Route path="/uploadbook" element={<NewWritebooks/>} />
           <Route path="/getList" element={<NewBooklist/>} />
+          <Route path='/bookshow' element={<BookShow/>}/>
         </Routes>
          </Router>
         </Content>
